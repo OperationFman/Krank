@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<p> Food Roulette!</p>
+
+<h1>{{the_generated}}</h1>
+<form action='/generate'>
+    <input type="submit" value="Generate" style="width:500px; height:200"/>
+</form>
+<form action='/list'>
+    <input type="submit" value="Add / Remove" style="width:500px; height:200"/>
+</form>
 {% endblock %}

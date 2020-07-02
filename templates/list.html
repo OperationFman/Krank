@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<form method='POST' action='/additem'>
+  <input name='enteritem' type='TEXT' value='eg. Pascetti' width='10'><input value='+' type='SUBMIT'>
+
+<br/><br/>
+
+<!--- loop through each item with these, written thrice for demo--->
+<form method='POST' action='/toggleitem'>
+  <input value='{{the_food_item}}Sample Item' type='SUBMIT'>
+
+<form method='POST' action='/deleteitem'>
+  <input value='-' type='SUBMIT'>
+
+<br/>
+
+<form method='POST' action='/toggleitem'>
+  <input value='{{the_food_item}}Sample Item' type='SUBMIT'>
+
+<form method='POST' action='/deleteitem'>
+  <input value='-' type='SUBMIT'>
+
+<br/>
+
+<form method='POST' action='/toggleitem'>
+  <input value='{{the_food_item}}Sample Item' type='SUBMIT'>
+
+<form method='POST' action='/deleteitem'>
+  <input value='-' type='SUBMIT'>
+
+<br/>
+
+{% endblock %}

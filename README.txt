@@ -6,7 +6,7 @@ Simply handles two of our LARGEST problems:
 -What to have for dinner
 -Converting currency and keeping a record
 
-This is a micro-stack using Python with the flask framework, 
+This is a micro-stack using Python with the flask framework, MySQL and html/css
 leaning heavily on the book 'Head First Python'
 
 Install:

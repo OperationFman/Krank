@@ -1,6 +1,20 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<p>fx conversion!</p>
+
+<form method='POST' action='/convert'>
+
+  <input name='fcurrencytype' type='TEXT' value={{the_last_currency}}JPY maxLength='3' size='3'>
+  <input name='fcurrencyamount' type='TEXT' value='100.00'>
+  <p>AUD <input name='enteritem' type='TEXT' value='10.00'></p>
+<br/>
+  <p>To Kee <input type='checkbox' name='ToKee' value='To Kee'>
+  To Frank <input type='checkbox' name='ToFrank' value='To Frank'></p>
+  <input value='Submit' type='SUBMIT'>
+
+<br/>
+
+<form method='POST' action='/conversionlog'>
+  <input value='History' type='SUBMIT'>
 
 {% endblock %}
