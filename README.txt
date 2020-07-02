@@ -1,3 +1,5 @@
+# Meal Roulette + FX Converter
+
 Basic webapp built by and for Franklin and Keegan
 
 Simply handles two of our LARGEST problems:
