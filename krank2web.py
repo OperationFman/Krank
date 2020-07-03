@@ -57,4 +57,4 @@ def show_log():
     return render_template('conversionlog.html', page_title='Krank Conversion Log')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='172.16.80.97')
+    app.run(debug=True, host='172.16.80.129')

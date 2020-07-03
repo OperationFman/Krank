@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body %}
-
+<div align="center" style="margin-left:50px; margin-right:50px">
 <h1>{{the_generated}}</h1>
 <form action='/generate'>
-    <input type="submit" value="Generate" style="width:500px; height:200"/>
+    <button type="Submit" class="btn btn-outline-success btn-block" style="padding:15px">Generate</button>
 </form>
+<br>
 <form action='/list'>
-    <input type="submit" value="Add / Remove" style="width:500px; height:200"/>
+    <button type="Submit" class="btn btn-outline-secondary btn-block" style="padding:15px">Add / Remove</button>
 </form>
+</div>
 {% endblock %}

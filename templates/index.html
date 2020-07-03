@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<form action='/options'>
-    <input type="submit" value="Food Roulette" style="width:500px; height:200"/>
+<div align="center" style="margin-left:50px; margin-right:50px">
+<br>
+<form method="GET" action='/options'>
+  <button type="submit" class="btn btn-outline-success btn-block" style="padding:15px">Food Roulette</button>
 </form>
-<form action='/fxconverter'>
-    <input type="submit" value="Currency Converter" style="width:500px; height:200"/>
+<br>
+<form method="GET" action='/fxconverter'>
+  <button type="submit" class="btn btn-outline-primary btn-block" style="padding:15px">Currency Converter</button>
 </form>
-
+</div>
 {% endblock %}

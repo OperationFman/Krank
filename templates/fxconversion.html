@@ -1,20 +1,40 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<div align="center" style="margin-left:50px; margin-right:50px">
+<form method='GET' action='/convert'>
 
-<form method='POST' action='/convert'>
+<div class="row justify-content-md-center">
+  <div class="col">
+    <input name='fcurrencytype' class="form-control" value={{the_last_currency}}JPY maxLength='3' size='3'>
+    <br>
+    <input class="form-control" type="text" placeholder="AUD" readonly>
+  </div>
+  <div class="col-8">
+    <input name='fcurrencyamount' class="form-control" type="number">
+    <br>
+    <input name='fcurrencyamount' class="form-control" type="number">
+  </div>
+</div>
+<br>
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name="ToKee" id="ToKee" autocomplete="off" checked> To Kee
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="ToFrank" id="ToFrank" autocomplete="off"> To Frank
+  </label>
+</div>
+<br><br>
 
-  <input name='fcurrencytype' type='TEXT' value={{the_last_currency}}JPY maxLength='3' size='3'>
-  <input name='fcurrencyamount' type='TEXT' value='100.00'>
-  <p>AUD <input name='enteritem' type='TEXT' value='10.00'></p>
+<button type="Submit" class="btn btn-outline-primary btn-block" style="padding:15px">Convert</button>
+
 <br/>
-  <p>To Kee <input type='checkbox' name='ToKee' value='To Kee'>
-  To Frank <input type='checkbox' name='ToFrank' value='To Frank'></p>
-  <input value='Submit' type='SUBMIT'>
 
-<br/>
+<form method='GET' action='/conversionlog'>
+  <button type="Submit" class="btn btn-outline-secondary btn-block" style="padding:15px">History</button>
+</div>
 
-<form method='POST' action='/conversionlog'>
-  <input value='History' type='SUBMIT'>
+
 
 {% endblock %}
