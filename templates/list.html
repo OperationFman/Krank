@@ -2,36 +2,10 @@
 
 {% block body %}
 <div align="center" style="margin-left:50px; margin-right:50px">
-<form method='GET' action='/additem'>
-  <input name='enteritem' class="form-control" value='eg. Pascetti' width='10' style="padding:30px">
+<form method='POST' action='/additem'>
+  <input name='item' class="form-control" width='10' style="padding:30px">
   <br>
   <button type="Submit" class="btn btn-outline-success btn-lg" style="padding-left:40px; padding-right:40px">Add to List</button>
+</form>
 
-<br/><br/>
-
-<!--- loop through each item with these, written thrice for demo--->
-<form method='GET' action='/toggleitem'>
-  <input value='{{the_food_item}}Sample Item' type='SUBMIT'>
-
-<form method='GET' action='/deleteitem'>
-  <input value='-' type='SUBMIT'>
-
-<br/>
-
-<form method='GET' action='/toggleitem'>
-  <input value='{{the_food_item}}Sample Item' type='SUBMIT'>
-
-<form method='GET' action='/deleteitem'>
-  <input value='-' type='SUBMIT'>
-
-<br/>
-
-<form method='GET' action='/toggleitem'>
-  <input value='{{the_food_item}}Sample Item' type='SUBMIT'>
-
-<form method='GET' action='/deleteitem'>
-  <input value='-' type='SUBMIT'>
-
-<br/>
-</div>
 {% endblock %}
