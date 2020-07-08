@@ -1,6 +1,6 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, redirect
 import random
-from DBContentManager import UseDatabase
+import csv
 
 app = Flask(__name__)
 app.config['dbconfig'] = {'host': '127.0.0.1', 'user': 'Franklin', 'password': 'osakapass', 'database': 'krank', }
@@ -29,40 +29,39 @@ def open_fx_converter():
 
 @app.route('/generate')
 def do_generate():
-    """Raondomly selects an item from the optionsdb and cuts the end characters off"""
-    with UseDatabase(app.config['dbconfig']) as cursor:
-        _SQL = """select item from optionsdb"""
-        cursor.execute(_SQL)
-        contents = cursor.fetchall()
+    """Randomly selects items from a csv"""
+    contents = []
+    with open("options.csv") as f:
+        for row in f:
+            contents.append(row.split(',')[0])
     item = random.choice(contents)
-    stringeditem = str(item)
-    generate_output = stringeditem[2:-3]
     return render_template('options.html',
                             page_title='Krank Generator',
-                            the_generated=generate_output)
+                            the_generated=item)
 
 @app.route('/list')
 def do_list():
+    contents = []
+    with open("options.csv") as f:
+        for row in f:
+            contents.append(row.split(',')[0])
     return render_template('list.html',
-                            page_title='Krank List')
+                            page_title='Krank List',
+                            the_data=contents[::-1] )
+
+@app.route('/deleteitem', methods=['GET', 'POST'])
+def do_delete_item():
+    return redirect('/list')
+
+
+
 
 @app.route('/additem', methods=['GET', 'POST'])
 def do_add_item():
-    with UseDatabase(app.config['dbconfig']) as cursor:
-        _SQL = """insert into optionsdb (item, toggle) (%s, %s)"""
-        cursor.execute(_SQL, request.form['item'], 'True' )
-    return render_template('list.html',
-                            page_title='Krank List')
-
-@app.route('/toggleitem')
-def do_toggle_item():
-    return render_template('list.html',
-                            page_title='Krank List')
-
-@app.route('/deleteitem')
-def do_delete_item():
-    return render_template('list.html',
-                            page_title='Krank List')
+    with open('options.csv', 'a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([request.form['item']])
+    return redirect('/list')
 
 @app.route('/convert')
 def do_conversion():
@@ -73,4 +72,4 @@ def show_log():
     return render_template('conversionlog.html', page_title='Krank Conversion Log')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='172.16.80.140')
+    app.run(debug=True, host='172.16.80.92')

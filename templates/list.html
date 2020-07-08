@@ -2,10 +2,22 @@
 
 {% block body %}
 <div align="center" style="margin-left:50px; margin-right:50px">
-<form method='POST' action='/additem'>
-  <input name='item' class="form-control" width='10' style="padding:30px">
+<form action="/additem" method="POST">
+  <input type="text" id="item" name="item" class="form-control" width="10" style="padding:30px">
   <br>
   <button type="Submit" class="btn btn-outline-success btn-lg" style="padding-left:40px; padding-right:40px">Add to List</button>
 </form>
+
+<br><hr>
+<div align="center" style="margin-left:50px; margin-right:50px">
+  {% for item in the_data %}
+    <td>
+    <form action="/deleteitem" method="POST">
+      <button type="button" class="btn btn-outline-danger btn-block">{{item}}</button>
+    </form>
+    <hr>
+  </td>
+  {% endfor %}
+</div>
 
 {% endblock %}
