@@ -5,18 +5,25 @@
 <form action="/additem" method="POST">
   <input type="text" id="item" name="item" class="form-control" width="10" style="padding:30px">
   <br>
-  <button type="Submit" class="btn btn-outline-success btn-lg" style="padding-left:40px; padding-right:40px">Add to List</button>
+  <button type="Submit" class="btn btn-outline-success btn-lg">Add to List</button>
 </form>
+</div>
+
+<div align="center" style="margin-left:50px; margin-right:50px">
+  <form action="/generate">
+    <br>
+    <button type="Submit" class="btn btn-outline-secondary btn-lg btn-lg" style="padding-left:35px; padding-right:35px">Return</button>
+  </form>
+</div>
 
 <br><hr>
 <div align="center" style="margin-left:50px; margin-right:50px">
   {% for item in the_data %}
-    <td>
     <form action="/deleteitem" method="POST">
-      <button type="button" class="btn btn-outline-danger btn-block">{{item}}</button>
+       <input type="hidden" id="item" name="item" value="{{item}}">
+      <button type="Submit" class="btn btn-outline-danger btn-block">{{item}}</button>
     </form>
     <hr>
-  </td>
   {% endfor %}
 </div>
 

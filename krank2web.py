@@ -1,10 +1,10 @@
 from flask import Flask, render_template, url_for, request, redirect
 import random
 import csv
+from currency_converter import CurrencyConverter
 
 app = Flask(__name__)
-app.config['dbconfig'] = {'host': '127.0.0.1', 'user': 'Franklin', 'password': 'osakapass', 'database': 'krank', }
-
+c = CurrencyConverter()
 
 @app.route('/')
 @app.route('/Home')
@@ -45,16 +45,32 @@ def do_list():
     with open("options.csv") as f:
         for row in f:
             contents.append(row.split(',')[0])
+    converted_contents = []
+    for element in contents:
+        converted_contents.append(element.strip())
     return render_template('list.html',
                             page_title='Krank List',
-                            the_data=contents[::-1] )
+                            the_data=converted_contents[::-1] )
 
 @app.route('/deleteitem', methods=['GET', 'POST'])
 def do_delete_item():
-    return redirect('/list')
-
-
-
+    try:
+        contents = []
+        with open("options.csv") as f:
+            for row in f:
+                contents.append(row.split(',')[0])
+        converted_contents = []
+        for element in contents:
+            converted_contents.append(element.strip())
+        to_delete = str(request.form['item'])
+        converted_contents.remove(to_delete)
+        with open('options.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            for row in converted_contents:
+                writer.writerow([row])
+        return redirect('/list')
+    except:
+        return redirect('/list')
 
 @app.route('/additem', methods=['GET', 'POST'])
 def do_add_item():
@@ -63,13 +79,30 @@ def do_add_item():
         writer.writerow([request.form['item']])
     return redirect('/list')
 
-@app.route('/convert')
+@app.route('/convert', methods=['GET', 'POST'])
 def do_conversion():
-    return render_template('fxconversion.html', page_title='Krank Currency')
+    fx_type = request.form['fcurrencytype']
+    fx_amount = request.form['FXcurrencyamount']
+    aud_amount = request.form['AUDcurrencyamount']
+    #Entered FX Currency to Convert to AUD
+    if not fx_amount == '':
+        conversion = c.convert(fx_amount, fx_type, 'AUD')
+        conversion_result = str("{:.2f}".format(conversion))
+        return render_template('fxconversion.html', page_title='Krank Currency',
+                                                    aud_field=conversion_result,
+                                                    fx_field=fx_amount)
+    #Entered AUD to Convert to FX
+    if not aud_amount == '':
+        conversion = c.convert(aud_amount, 'AUD', fx_type)
+        conversion_result = str("{:.2f}".format(conversion))
+        return render_template('fxconversion.html', page_title='Krank Currency',
+                                                    aud_field=aud_amount,
+                                                    fx_field=conversion_result)
+
 
 @app.route('/conversionlog')
 def show_log():
     return render_template('conversionlog.html', page_title='Krank Conversion Log')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='172.16.80.92')
+    app.run(debug=True, host='172.16.80.69')

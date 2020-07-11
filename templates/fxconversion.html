@@ -2,18 +2,18 @@
 
 {% block body %}
 <div align="center" style="margin-left:50px; margin-right:50px">
-<form method='GET' action='/convert'>
+<form action='/convert' method='POST'>
 
 <div class="row justify-content-md-center">
   <div class="col">
-    <input name='fcurrencytype' class="form-control" value={{the_last_currency}}JPY maxLength='3' size='3'>
+    <input name='fcurrencytype' type="text" class="form-control" value={{the_last_currency}}JPY maxLength='3' size='3'>
     <br>
     <input class="form-control" type="text" placeholder="AUD" readonly>
   </div>
   <div class="col-8">
-    <input name='fcurrencyamount' class="form-control" type="number">
+    <input name='FXcurrencyamount' class="form-control" type="number" value={{fx_field}}>
     <br>
-    <input name='fcurrencyamount' class="form-control" type="number">
+    <input name='AUDcurrencyamount' class="form-control" type="number" value={{aud_field}}>
   </div>
 </div>
 <br>
@@ -28,7 +28,7 @@
 <br><br>
 
 <button type="Submit" class="btn btn-outline-primary btn-block" style="padding:15px">Convert</button>
-
+</form>
 <br/>
 
 <form method='GET' action='/conversionlog'>
