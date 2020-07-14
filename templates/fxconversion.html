@@ -2,11 +2,11 @@
 
 {% block body %}
 <div align="center" style="margin-left:50px; margin-right:50px">
-<form action='/convert' method='POST'>
 
+<form action='/convert' method='POST'>
 <div class="row justify-content-md-center">
   <div class="col">
-    <input name='fcurrencytype' type="text" class="form-control" value={{the_last_currency}}JPY maxLength='3' size='3'>
+    <input name='fcurrencytype' type="text" class="form-control" value="{{the_last_currency}}"">
     <br>
     <input class="form-control" type="text" placeholder="AUD" readonly>
   </div>
@@ -16,23 +16,14 @@
     <input name='AUDcurrencyamount' class="form-control" type="number" value={{aud_field}}>
   </div>
 </div>
-<br>
-<div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-secondary active">
-    <input type="radio" name="ToKee" id="ToKee" autocomplete="off" checked> To Kee
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="ToFrank" id="ToFrank" autocomplete="off"> To Frank
-  </label>
-</div>
+<br><h1>{{error_spot}}</h1>
+  <a href="/fxconverter" type="button" class="btn btn-outline-info btn-lg">Reset</a>
 <br><br>
 
 <button type="Submit" class="btn btn-outline-primary btn-block" style="padding:15px">Convert</button>
 </form>
 <br/>
 
-<form method='GET' action='/conversionlog'>
-  <button type="Submit" class="btn btn-outline-secondary btn-block" style="padding:15px">History</button>
 </div>
 
 

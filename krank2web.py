@@ -24,8 +24,11 @@ def open_food_roulette():
 @app.route('/fxconverter')
 def open_fx_converter():
     """Simple web form for currency conversion, routing and history"""
+    with open('fxlog.txt', 'r') as file:
+        last_fx = file.read()
+    print(last_fx)
     return render_template('fxconversion.html',
-                            page_title='Krank Currency')
+                            page_title='Krank Currency', the_last_currency=last_fx)
 
 @app.route('/generate')
 def do_generate():
@@ -82,6 +85,9 @@ def do_add_item():
 @app.route('/convert', methods=['GET', 'POST'])
 def do_conversion():
     fx_type = request.form['fcurrencytype']
+    fx_type = fx_type.upper()
+    with open('fxlog.txt', 'w') as file:
+        file.write(fx_type)
     fx_amount = request.form['FXcurrencyamount']
     aud_amount = request.form['AUDcurrencyamount']
     #Entered FX Currency to Convert to AUD
@@ -90,19 +96,16 @@ def do_conversion():
         conversion_result = str("{:.2f}".format(conversion))
         return render_template('fxconversion.html', page_title='Krank Currency',
                                                     aud_field=conversion_result,
-                                                    fx_field=fx_amount)
+                                                    fx_field=fx_amount,
+                                                    the_last_currency=fx_type)
     #Entered AUD to Convert to FX
     if not aud_amount == '':
         conversion = c.convert(aud_amount, 'AUD', fx_type)
         conversion_result = str("{:.2f}".format(conversion))
         return render_template('fxconversion.html', page_title='Krank Currency',
                                                     aud_field=aud_amount,
-                                                    fx_field=conversion_result)
-
-
-@app.route('/conversionlog')
-def show_log():
-    return render_template('conversionlog.html', page_title='Krank Conversion Log')
+                                                    fx_field=conversion_result,
+                                                    the_last_currency=fx_type)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='172.16.80.69')
+    app.run(debug=True, host='172.16.80.110')
