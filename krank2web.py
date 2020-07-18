@@ -50,6 +50,7 @@ def do_generate():
 
 @app.route('/list')
 def do_list():
+    """grabs each added item, appends to a list, increments backwards sending to html"""
     contents = []
     with open("options.csv") as f:
         for row in f:
@@ -63,6 +64,7 @@ def do_list():
 
 @app.route('/deleteitem', methods=['GET', 'POST'])
 def do_delete_item():
+    """grabs all data, adds to list, overwrite csv with everything except item to delete. If fails, reloads page"""
     try:
         contents = []
         with open("options.csv") as f:
@@ -83,6 +85,7 @@ def do_delete_item():
 
 @app.route('/additem', methods=['GET', 'POST'])
 def do_add_item():
+    """appends data submitted to csv file"""
     with open('options.csv', 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([request.form['item']])
@@ -90,6 +93,7 @@ def do_add_item():
 
 @app.route('/convert', methods=['GET', 'POST'])
 def do_conversion():
+    """convert currency from one field against entered currency, reload form with placeholder data as result"""
     try:
         fx_type = request.form['fcurrencytype']
         fx_type = fx_type.upper()
@@ -112,7 +116,8 @@ def do_conversion():
             return render_template('fxconversion.html', page_title='Krank Currency',
                                                         aud_field=aud_amount,
                                                         fx_field=conversion_result,
-                                                        the_last_currency=fx_type)
+
+        #No currency added, clears everything
         if not aud_amount == '' and not fx_amount == '':
             return render_template('fxconversion.html', page_title='Krank Currency',
                                                         aud_field='',
