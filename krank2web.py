@@ -116,9 +116,10 @@ def do_conversion():
             return render_template('fxconversion.html', page_title='Krank Currency',
                                                         aud_field=aud_amount,
                                                         fx_field=conversion_result,
+                                                        the_last_currency=fx_type)
 
         #No currency added, clears everything
-        if not aud_amount == '' and not fx_amount == '':
+        if not aud_amount is '' and not fx_amount is '':
             return render_template('fxconversion.html', page_title='Krank Currency',
                                                         aud_field='',
                                                         fx_field='',
